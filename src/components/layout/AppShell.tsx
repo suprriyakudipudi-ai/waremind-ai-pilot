@@ -133,6 +133,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="ml-auto flex items-center gap-2">
+            <ThemeToggle />
             <Select value={warehouse} onValueChange={setWarehouse}>
               <SelectTrigger className="h-9 w-[190px]">
                 <SelectValue />
