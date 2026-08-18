@@ -112,7 +112,7 @@ function Dashboard() {
   return (
     <>
       <PageHeader
-        title={`${greeting}, Warehouse Manager`}
+        title={`${greeting}, ${profile.name.split(" ")[0]}`}
         subtitle={
           now
             ? `${now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · ${now.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}`
