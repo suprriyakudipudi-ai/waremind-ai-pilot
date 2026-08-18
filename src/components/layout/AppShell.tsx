@@ -37,6 +37,7 @@ import { cn } from "@/lib/utils";
 import { useWarehouse } from "@/lib/warehouse/store";
 import { WAREHOUSES } from "@/lib/warehouse/data";
 import { isOrderAtRisk } from "@/lib/warehouse/engine";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 
 const NAV = [
