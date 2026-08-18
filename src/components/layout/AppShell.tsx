@@ -38,6 +38,7 @@ import { useWarehouse } from "@/lib/warehouse/store";
 import { WAREHOUSES } from "@/lib/warehouse/data";
 import { isOrderAtRisk } from "@/lib/warehouse/engine";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { useProfile } from "@/lib/profile";
 
 
 const NAV = [
@@ -58,6 +59,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { warehouse, setWarehouse, orders, products, exceptions } = useWarehouse();
+  const { profile, initials } = useProfile();
 
   const atRisk = orders.filter((o) => isOrderAtRisk(o, products)).length;
   const openExceptions = exceptions.filter((e) => e.status === "Open").length;
@@ -174,15 +176,17 @@ export function AppShell({ children }: { children: ReactNode }) {
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-2 rounded-full border border-border py-1 pl-1 pr-3 transition-colors hover:bg-muted">
                   <span className="grid size-7 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
-                    SK
+                    {initials}
                   </span>
-                  <span className="hidden text-xs font-medium sm:block">Warehouse Manager</span>
+                  <span className="hidden text-xs font-medium sm:block">{profile.role}</span>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Suprriya K.</DropdownMenuLabel>
+                <DropdownMenuLabel>{profile.name}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/profile">Profile</Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/settings">Settings</Link>
                 </DropdownMenuItem>

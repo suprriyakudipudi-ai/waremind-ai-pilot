@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { greetingForHour } from "@/lib/theme";
+import { useProfile } from "@/lib/profile";
 import { AiActionCenter } from "@/components/warehouse/AiActionCenter";
 import { Metric, PageHeader, Panel } from "@/components/warehouse/Primitives";
 import { FULFILLMENT_TREND } from "@/lib/warehouse/data";
@@ -65,6 +66,7 @@ const STATUS_COLORS: Record<string, string> = {
 
 function Dashboard() {
   const { orders, products } = useWarehouse();
+  const { profile } = useProfile();
   const [now, setNow] = useState<Date | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
 
@@ -112,7 +114,7 @@ function Dashboard() {
   return (
     <>
       <PageHeader
-        title={`${greeting}, Warehouse Manager`}
+        title={`${greeting}, ${profile.name.split(" ")[0]}`}
         subtitle={
           now
             ? `${now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · ${now.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}`
