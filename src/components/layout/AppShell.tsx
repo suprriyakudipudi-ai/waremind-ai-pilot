@@ -89,8 +89,9 @@ export function AppShell({ children }: { children: ReactNode }) {
                 className={cn(
                   "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all",
                   active
-                    ? "gradient-brand font-medium text-primary-foreground shadow-[var(--shadow-glow)]"
-                    : "text-sidebar-foreground/85 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                    ? "bg-sidebar-accent font-semibold text-sidebar-accent-foreground"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground",
+
                 )}
               >
                 <item.icon className="size-4 shrink-0" />
