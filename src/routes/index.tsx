@@ -132,7 +132,7 @@ function Dashboard() {
                   mode="single"
                   selected={selectedDate ?? now ?? undefined}
                   onSelect={setSelectedDate}
-                  defaultMonth={now ?? undefined}
+                  {...(now ? { defaultMonth: now } : {})}
                   className="pointer-events-auto p-3"
                 />
               </PopoverContent>
