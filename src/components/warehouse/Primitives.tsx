@@ -67,28 +67,65 @@ export function Metric({
   hint,
   tone = "default",
   icon,
+  delta,
+  deltaDirection = "up",
 }: {
   label: string;
   value: string | number;
   hint?: string | undefined;
   tone?: "default" | "success" | "warning" | "critical" | "info" | undefined;
   icon?: ReactNode | undefined;
+  delta?: string | undefined;
+  deltaDirection?: "up" | "down" | "flat" | undefined;
 }) {
+  const toneCard: Record<string, string> = {
+    default: "bg-secondary/60 border-secondary",
+    success: "bg-success/12 border-success/25",
+    warning: "bg-caution/25 border-caution/40",
+    critical: "bg-critical/10 border-critical/25",
+    info: "bg-info/12 border-info/25",
+  };
   const toneRing: Record<string, string> = {
-    default: "bg-muted text-muted-foreground",
-    success: "bg-success/12 text-success",
-    warning: "bg-warning/12 text-warning",
-    critical: "bg-critical/12 text-critical",
-    info: "bg-info/12 text-info",
+    default: "bg-primary/12 text-primary",
+    success: "bg-success/20 text-success",
+    warning: "bg-caution/40 text-caution-foreground",
+    critical: "bg-critical/15 text-critical",
+    info: "bg-info/20 text-info",
+  };
+  const toneText: Record<string, string> = {
+    default: "text-primary",
+    success: "text-success",
+    warning: "text-caution-foreground",
+    critical: "text-critical",
+    info: "text-info",
   };
   return (
-    <div className="panel p-5 transition-shadow hover:shadow-[var(--shadow-raised)]">
-      <div className="flex items-start justify-between gap-3">
-        <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-        {icon && <span className={cn("grid size-9 place-items-center rounded-lg", toneRing[tone])}>{icon}</span>}
+    <div
+      className={cn(
+        "rounded-2xl border p-4 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-raised)]",
+        toneCard[tone],
+      )}
+    >
+      <div className="flex items-center gap-3">
+        {icon && (
+          <span className={cn("grid size-11 shrink-0 place-items-center rounded-xl", toneRing[tone])}>{icon}</span>
+        )}
+        <div className="min-w-0">
+          <p className={cn("truncate text-2xl font-semibold leading-tight", toneText[tone])}>{value}</p>
+          <p className="truncate text-xs font-medium text-muted-foreground">{label}</p>
+        </div>
       </div>
-      <p className="mt-3 text-2xl font-semibold text-foreground">{value}</p>
-      {hint && <p className="mt-1 text-xs text-muted-foreground">{hint}</p>}
+      {(delta || hint) && (
+        <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+          {delta && (
+            <span className={cn("inline-flex items-center gap-1 font-medium", toneText[tone])}>
+              <span aria-hidden>{deltaDirection === "down" ? "↘" : deltaDirection === "flat" ? "→" : "↗"}</span>
+              {delta}
+            </span>
+          )}
+          {hint}
+        </p>
+      )}
     </div>
   );
 }
