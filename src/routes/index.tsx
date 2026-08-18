@@ -3,7 +3,7 @@ import {
   Boxes,
   CalendarDays,
   CheckCircle2,
-  Clock,
+
   Layers,
   PackageX,
   Percent,
