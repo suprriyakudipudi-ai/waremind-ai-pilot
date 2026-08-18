@@ -95,7 +95,7 @@ function Dashboard() {
   return (
     <>
       <PageHeader
-        title="Good Morning, Warehouse Manager 👋"
+        title="Good Morning, Warehouse Manager"
         subtitle="Here is today's warehouse operational overview."
         actions={
           <>
@@ -163,7 +163,8 @@ function Dashboard() {
       <div className="grid gap-6 xl:grid-cols-2">
         <Panel title="Order Status Overview" description="Live distribution across the fulfilment pipeline">
           <div className="flex flex-col items-center gap-6 sm:flex-row">
-            <ResponsiveContainer width="100%" height={220} className="max-w-[240px]">
+            <div className="w-[240px] shrink-0">
+            <ResponsiveContainer width="100%" height={220}>
               <PieChart>
                 <Pie
                   data={statusData}
@@ -173,6 +174,7 @@ function Dashboard() {
                   outerRadius={92}
                   paddingAngle={2}
                   stroke="none"
+                  isAnimationActive={false}
                 >
                   {statusData.map((entry) => (
                     <Cell key={entry.status} fill={STATUS_COLORS[entry.status]} />
@@ -183,6 +185,7 @@ function Dashboard() {
                 />
               </PieChart>
             </ResponsiveContainer>
+            </div>
             <ul className="w-full flex-1 space-y-2 text-sm">
               {statusData.map((d) => (
                 <li key={d.status} className="flex items-center gap-2.5">
@@ -231,6 +234,7 @@ function Dashboard() {
                 stroke="var(--color-chart-1)"
                 strokeWidth={2.5}
                 fill="url(#fulfilFill)"
+                isAnimationActive={false}
                 dot={{ r: 3, fill: "var(--color-chart-1)", strokeWidth: 0 }}
               />
             </AreaChart>
