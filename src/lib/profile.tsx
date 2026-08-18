@@ -15,7 +15,7 @@ const DEFAULT_PROFILE: Profile = {
   role: "Warehouse Manager",
   email: "suprriya.k@waremind.ai",
   phone: "+91 98765 43210",
-  warehouse: "Chennai DC",
+  warehouse: "WH-South (Chennai)",
   shift: "Morning (6:00 – 14:00)",
   bio: "Runs daily fulfilment operations and owns SLA performance across the network.",
 };

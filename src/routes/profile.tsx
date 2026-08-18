@@ -118,7 +118,7 @@ function ProfilePage() {
               <p className="text-lg font-semibold">{profile.name}</p>
               <p className="text-sm text-muted-foreground">{profile.role}</p>
             </div>
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-success/15 px-3 py-1 text-xs font-medium text-success-foreground ring-1 ring-success/30">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-success/15 px-3 py-1 text-xs font-medium text-foreground ring-1 ring-success/30">
               <ShieldCheck className="size-3.5 text-success" /> Verified operator
             </span>
           </div>
