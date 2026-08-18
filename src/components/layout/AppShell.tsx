@@ -38,6 +38,7 @@ import { useWarehouse } from "@/lib/warehouse/store";
 import { WAREHOUSES } from "@/lib/warehouse/data";
 import { isOrderAtRisk } from "@/lib/warehouse/engine";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { useProfile } from "@/lib/profile";
 
 
 const NAV = [
