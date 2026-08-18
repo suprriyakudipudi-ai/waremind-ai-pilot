@@ -59,6 +59,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { warehouse, setWarehouse, orders, products, exceptions } = useWarehouse();
+  const { profile, initials } = useProfile();
 
   const atRisk = orders.filter((o) => isOrderAtRisk(o, products)).length;
   const openExceptions = exceptions.filter((e) => e.status === "Open").length;
