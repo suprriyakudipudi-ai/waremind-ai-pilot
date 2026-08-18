@@ -37,6 +37,7 @@ import { cn } from "@/lib/utils";
 import { useWarehouse } from "@/lib/warehouse/store";
 import { WAREHOUSES } from "@/lib/warehouse/data";
 import { isOrderAtRisk } from "@/lib/warehouse/engine";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 
 const NAV = [
@@ -133,6 +134,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="ml-auto flex items-center gap-2">
+            <ThemeToggle />
             <Select value={warehouse} onValueChange={setWarehouse}>
               <SelectTrigger className="h-9 w-[190px]">
                 <SelectValue />

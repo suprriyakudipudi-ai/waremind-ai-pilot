@@ -23,7 +23,11 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { greetingForHour } from "@/lib/theme";
 import { AiActionCenter } from "@/components/warehouse/AiActionCenter";
 import { Metric, PageHeader, Panel } from "@/components/warehouse/Primitives";
 import { FULFILLMENT_TREND } from "@/lib/warehouse/data";
@@ -61,6 +65,19 @@ const STATUS_COLORS: Record<string, string> = {
 
 function Dashboard() {
   const { orders, products } = useWarehouse();
+  const [now, setNow] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+
+  useEffect(() => {
+    setNow(new Date());
+    const id = window.setInterval(() => setNow(new Date()), 60_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const greeting = now ? greetingForHour(now.getHours()) : "Welcome";
+  const dateLabel = now
+    ? now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "short" })
+    : "Today";
 
   const availableUnits = products.reduce((s, p) => s + p.available, 0);
   const pending = orders.filter((o) => ["Created", "Pending"].includes(o.status)).length;
@@ -95,14 +112,31 @@ function Dashboard() {
   return (
     <>
       <PageHeader
-        title="Good Morning, Warehouse Manager"
-        subtitle="Here is today's warehouse operational overview."
+        title={`${greeting}, Warehouse Manager`}
+        subtitle={
+          now
+            ? `${now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" })} · ${now.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}`
+            : "Here is today's warehouse operational overview."
+        }
         actions={
           <>
-            <span className="hidden items-center gap-2 rounded-xl border border-border bg-surface px-3.5 py-2 text-sm text-muted-foreground sm:inline-flex">
-              <CalendarDays className="size-4 text-primary" />
-              Today
-            </span>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant="outline" className="hidden sm:inline-flex">
+                  <CalendarDays className="size-4 text-primary" />
+                  {dateLabel}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="end">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate ?? now ?? undefined}
+                  onSelect={setSelectedDate}
+                  {...(now ? { defaultMonth: now } : {})}
+                  className="pointer-events-auto p-3"
+                />
+              </PopoverContent>
+            </Popover>
             <Button asChild>
               <Link to="/allocation">
                 <Sparkles className="size-4" /> Run Smart Allocation
