@@ -61,6 +61,19 @@ const STATUS_COLORS: Record<string, string> = {
 
 function Dashboard() {
   const { orders, products } = useWarehouse();
+  const [now, setNow] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+
+  useEffect(() => {
+    setNow(new Date());
+    const id = window.setInterval(() => setNow(new Date()), 60_000);
+    return () => window.clearInterval(id);
+  }, []);
+
+  const greeting = now ? greetingForHour(now.getHours()) : "Welcome";
+  const dateLabel = now
+    ? now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "short" })
+    : "Today";
 
   const availableUnits = products.reduce((s, p) => s + p.available, 0);
   const pending = orders.filter((o) => ["Created", "Pending"].includes(o.status)).length;
