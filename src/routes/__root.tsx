@@ -15,6 +15,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { WarehouseProvider } from "@/lib/warehouse/store";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/lib/theme";
+import { ProfileProvider } from "@/lib/profile";
 
 function NotFoundComponent() {
   return (

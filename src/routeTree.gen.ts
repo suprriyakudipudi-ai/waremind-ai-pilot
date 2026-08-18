@@ -19,6 +19,7 @@ import { Route as InventoryRouteImport } from './routes/inventory'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as PackingRouteImport } from './routes/packing'
 import { Route as PickingRouteImport } from './routes/picking'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as OrdersIndexRouteImport } from './routes/orders.index'
 import { Route as OrdersOrderIdRouteImport } from './routes/orders.$orderId'
@@ -73,6 +74,11 @@ const PickingRoute = PickingRouteImport.update({
   path: '/picking',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
@@ -100,6 +106,7 @@ export interface FileRoutesByFullPath {
   '/orders': typeof OrdersRouteWithChildren
   '/packing': typeof PackingRoute
   '/picking': typeof PickingRoute
+  '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/orders/$orderId': typeof OrdersOrderIdRoute
   '/orders/': typeof OrdersIndexRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByTo {
   '/inventory': typeof InventoryRoute
   '/packing': typeof PackingRoute
   '/picking': typeof PickingRoute
+  '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/orders/$orderId': typeof OrdersOrderIdRoute
   '/orders': typeof OrdersIndexRoute
@@ -130,6 +138,7 @@ export interface FileRoutesById {
   '/orders': typeof OrdersRouteWithChildren
   '/packing': typeof PackingRoute
   '/picking': typeof PickingRoute
+  '/profile': typeof ProfileRoute
   '/settings': typeof SettingsRoute
   '/orders/$orderId': typeof OrdersOrderIdRoute
   '/orders/': typeof OrdersIndexRoute
@@ -147,6 +156,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/packing'
     | '/picking'
+    | '/profile'
     | '/settings'
     | '/orders/$orderId'
     | '/orders/'
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/inventory'
     | '/packing'
     | '/picking'
+    | '/profile'
     | '/settings'
     | '/orders/$orderId'
     | '/orders'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/orders'
     | '/packing'
     | '/picking'
+    | '/profile'
     | '/settings'
     | '/orders/$orderId'
     | '/orders/'
@@ -192,6 +204,7 @@ export interface RootRouteChildren {
   OrdersRoute: typeof OrdersRouteWithChildren
   PackingRoute: typeof PackingRoute
   PickingRoute: typeof PickingRoute
+  ProfileRoute: typeof ProfileRoute
   SettingsRoute: typeof SettingsRoute
 }
 
@@ -267,6 +280,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PickingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/settings': {
       id: '/settings'
       path: '/settings'
@@ -315,6 +335,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrdersRoute: OrdersRouteWithChildren,
   PackingRoute: PackingRoute,
   PickingRoute: PickingRoute,
+  ProfileRoute: ProfileRoute,
   SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
