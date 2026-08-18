@@ -25,10 +25,10 @@ interface Recommendation {
 }
 
 const KIND_META = {
-  Critical: { icon: ShieldAlert, tone: "critical" as const },
-  Warning: { icon: TrendingDown, tone: "warning" as const },
-  Optimization: { icon: RouteIcon, tone: "info" as const },
-  Bottleneck: { icon: Gauge, tone: "caution" as const },
+  Critical: { icon: ShieldAlert, tone: "critical" as const, card: "bg-critical/8 border-critical/20", ring: "bg-critical/15 text-critical" },
+  Warning: { icon: TrendingDown, tone: "warning" as const, card: "bg-caution/20 border-caution/35", ring: "bg-caution/40 text-caution-foreground" },
+  Optimization: { icon: RouteIcon, tone: "info" as const, card: "bg-info/10 border-info/22", ring: "bg-info/20 text-info" },
+  Bottleneck: { icon: Gauge, tone: "caution" as const, card: "bg-secondary/70 border-secondary", ring: "bg-primary/12 text-primary" },
 };
 
 export function AiActionCenter({ limit = 4 }: { limit?: number }) {
@@ -120,10 +120,10 @@ export function AiActionCenter({ limit = 4 }: { limit?: number }) {
         {recs.slice(0, limit).map((rec) => {
           const meta = KIND_META[rec.kind];
           return (
-            <article key={rec.id} className="rounded-xl border border-border bg-surface p-4 transition-shadow hover:shadow-[var(--shadow-card)]">
+            <article key={rec.id} className={`rounded-2xl border p-4 transition-shadow hover:shadow-[var(--shadow-card)] ${meta.card}`}>
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-muted text-foreground">
+                  <span className={`grid size-9 shrink-0 place-items-center rounded-xl ${meta.ring}`}>
                     <meta.icon className="size-4" />
                   </span>
                   <div>
